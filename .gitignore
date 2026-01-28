@@ -1,0 +1,9 @@
+# Ambiente virtual do Python
+venv/
+__pycache__/
+
+# Arquivos de ambiente com segredos
+.env
+
+# Arquivos do sistema operacional
+.DS_Store

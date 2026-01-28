@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat com IA Livre</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    #response { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    input { width: 300px; padding: 5px; }
+    button { padding: 5px 10px; margin-left: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Chat com IA Livre</h1>
+
+  <input type="text" id="userInput" placeholder="Digite sua pergunta...">
+  <button onclick="sendMessage()">Enviar</button>
+
+  <div id="response"></div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput").value;
+      document.getElementById("response").innerText = "⏳ Pensando...";
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: input })
+        });
+
+        const data = await response.json();
+        document.getElementById("response").innerText =
+          data.response || JSON.stringify(data);
+
+      } catch (e) {
+        document.getElementById("response").innerText =
+          "❌ Erro ao conectar com o backend";
+      }
+    }
+  </script>
+</body>
+</html>
